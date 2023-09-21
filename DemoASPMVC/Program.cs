@@ -15,6 +15,9 @@ builder.Services.AddSingleton<GameService>();
 builder.Services.AddTransient<SqlConnection>(pc => new SqlConnection(builder.Configuration.GetConnectionString("default")));
 
 builder.Services.AddScoped<IGameService, GameDBService>();
+builder.Services.AddScoped<IUserDBService, UserDBService>();
+
+
 //builder.Services.AddScoped<IGameService, GameService>();
 
 //Scoped => Je garde l'instance pour tout la durée d'un appel http

@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DemoASPMVC.Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace DemoASPMVC.Models.ViewModel
 {
-    public class UserRegisterForm
+    public class UserRegisterForm 
     {
         [Required]
         [MinLength(3, ErrorMessage = "Taille minimale : 3 Caratères")]
