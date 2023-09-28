@@ -11,7 +11,7 @@ namespace DemoASPMVC.Models.ViewModel
         [EmailAddress]
         public string Email { get; set; }
         [DataType(DataType.Password)]
-        [RegularExpression("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")]
+        //[RegularExpression("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")]
         public string Password { get; set; }
         [DataType(DataType.Password)]
         [Compare(nameof(Password), ErrorMessage = "Les 2 mots de passe doivent correspondre")]

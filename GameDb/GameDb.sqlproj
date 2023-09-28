@@ -57,12 +57,20 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables" />
+    <Folder Include="Storedprocedure" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Game.sql" />
     <Build Include="Tables\UsersDB.sql" />
+    <Build Include="Tables\Movie.sql" />
+    <Build Include="Storedprocedure\UserRegister.sql" />
+    <Build Include="Storedprocedure\GetSecretKey.sql" />
+    <Build Include="Storedprocedure\UserLogin.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GameDb.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeployment1.sql" />
   </ItemGroup>
 </Project>

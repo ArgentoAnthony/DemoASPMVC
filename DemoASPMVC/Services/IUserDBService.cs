@@ -1,5 +1,5 @@
 ﻿using DemoASPMVC.Models.ViewModel;
-using DemoASPMVC.Models;
+using DemoASPMVC_DAL.Models;
 
 
 namespace DemoASPMVC.Services

@@ -1,5 +1,6 @@
 ﻿using System.Data.SqlClient;
-using DemoASPMVC.Models;
+using DemoASPMVC_DAL.Models;
+using DemoASPMVC.Mapper;
 using DemoASPMVC.Models.ViewModel;
 using Humanizer.Localisation;
 
@@ -13,21 +14,13 @@ namespace DemoASPMVC.Services
 
         private User Mapper(UserRegisterForm u)
         {
-            return new User
-            {
-                Nickname = u.Nickname,
-                Email = u.Email,
-                Password = u.Password
-            };
+            return u.ToUser();
+            
         }
 
         private UserRegisterForm Mapper(User u)
         {
-            return new UserRegisterForm
-            {
-                Nickname = u.Nickname,
-                Email = u.Email
-            };
+            return u.ToRegisterDTO();
         }
         protected User Mapper(SqlDataReader reader)
         {
@@ -36,7 +29,6 @@ namespace DemoASPMVC.Services
                 Id = (int)reader["Id"],
                 Nickname = (string)reader["Nickname"],
                 Email = (string)reader["Email"],
-                Password = (string)reader["Password"]
             };
         }
         public UserDBService(SqlConnection connection)
@@ -53,7 +45,6 @@ namespace DemoASPMVC.Services
                 cmd.CommandText = sql;
                 cmd.Parameters.AddWithValue("@nom", user.Nickname);
                 cmd.Parameters.AddWithValue("@mail", user.Email);
-                cmd.Parameters.AddWithValue("@pass", user.Password);
 
                 _connection.Open();
                 cmd.ExecuteNonQuery();
@@ -69,7 +60,6 @@ namespace DemoASPMVC.Services
                 cmd.Parameters.AddWithValue("id", id);
                 cmd.Parameters.AddWithValue("nick", user.Nickname);
                 cmd.Parameters.AddWithValue("email", user.Email);
-                cmd.Parameters.AddWithValue("pass", user.Password);
                 cmd.CommandText = sql;
                 _connection.Open();
                 cmd.ExecuteNonQuery();

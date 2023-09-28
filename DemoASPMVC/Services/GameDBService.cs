@@ -66,7 +66,7 @@ namespace DemoASPMVC.Services
 
         public Game GetById(int id)
         {
-            Game game = null;
+            Game game = new();
             using(SqlCommand cmd = _connection.CreateCommand())
             {
                 cmd.CommandText = "SELECT * FROM Game WHERE Id = @id";

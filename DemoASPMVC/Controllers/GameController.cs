@@ -24,7 +24,10 @@ namespace DemoASPMVC.Controllers
         {
             return View(gameService.GetById(id));
         }
-
+        public IActionResult Edit()
+        {
+            return View();
+        }
         public IActionResult Create()
         {
             return View();

@@ -1,5 +1,7 @@
 using DemoASPMVC.Services;
 using System.Data.SqlClient;
+using DemoASPMVC_DAL.Interface;
+using DemoASPMVC_DAL.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +14,12 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<GameService>();
 
-builder.Services.AddTransient<SqlConnection>(pc => new SqlConnection(builder.Configuration.GetConnectionString("default")));
+builder.Services.AddTransient<SqlConnection>(pc => new SqlConnection(builder.Configuration.GetConnectionString("Techni")));
 
 builder.Services.AddScoped<IGameService, GameDBService>();
 builder.Services.AddScoped<IUserDBService, UserDBService>();
+builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 //builder.Services.AddScoped<IGameService, GameService>();
