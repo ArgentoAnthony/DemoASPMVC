@@ -4,16 +4,20 @@ using Microsoft.AspNetCore.Mvc;
 using DemoASPMVC_DAL.Interface;
 using DemoASPMVC_DAL.Models;
 using DemoASPMVC_DAL.Services;
+using Newtonsoft.Json;
+using DemoASPMVC.Tools;
 
 namespace DemoASPMVC.Controllers
 {
     public class UserController : Controller
     {
         private readonly IUserService _userService;
+        private readonly SessionManager _session;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, SessionManager session)
         {
             _userService = userService;
+            _session = session;
         }
 
         public IActionResult Index()
@@ -55,14 +59,22 @@ namespace DemoASPMVC.Controllers
         {
             try
             {
-                User user = _userService.Login(u.Email, u.Password);
-                return RedirectToAction("Index", "User");
+                User connectedUser = _userService.Login(u.Email, u.Password);
+                _session.ConnectedUser = connectedUser;
+                return RedirectToAction("Index", "Game");
+
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                ViewBag.error = ex.Message;
+                ViewBag.Error = ex.Message;
                 return View();
-            }                 
+            }
+        }
+
+        public IActionResult Logout()
+        {
+            _session.Logout();
+            return RedirectToAction("Index", "Game");
         }
     }
 }

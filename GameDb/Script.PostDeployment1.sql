@@ -14,10 +14,15 @@ VALUES ('Interstellar','.....',null),
        ('Forest Gump','Cours Forest cours!',null),
        ('Fast and furious 10','I''m fast as fuck boy...',null);
 
-INSERT INTO Game (Title, Description, Genre)
-VALUES ('WoW','Meilleur jeu', 'MMORPG'),
-        ('LoL', 'Pire jeu','MOBA'),
-        ('Starfield','Surcoté','RPG');
+INSERT INTO Genre (Label)
+VALUES('RPG'),
+      ('Moba'),
+      ('MMO')
+
+INSERT INTO Game (Title, Description, Genre_Id)
+VALUES ('WoW','Meilleur jeu', 3),
+        ('LoL', 'Pire jeu', 2),
+        ('Starfield','Surcoté',1);
 
 EXEC UserRegister 'admin@mail.be', 'motdepasse', 'Arthur'
 EXEC UserRegister 'user@mail.be', 'motdepasse', 'Merlin'

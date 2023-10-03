@@ -8,5 +8,6 @@ namespace DemoASPMVC.Services
         void Delete(int id);
         Game GetById(int id);
         IEnumerable<Game> GetGames();
+        IEnumerable<Game> GetGamesByGenre(int id);
     }
 }
