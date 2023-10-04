@@ -3,5 +3,6 @@
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
 	Title VARCHAR(100) NOT NULL,
 	Description VARCHAR(MAX),
-	Genre VARCHAR(50) NOT NULL
+	Genre_Id int, 
+    CONSTRAINT [FK_Game] FOREIGN KEY ([Genre_Id]) REFERENCES [Genre]([Id])
 )

@@ -25,7 +25,8 @@ namespace DemoASPMVC_DAL.Services
                 Id = (int)reader["Id"],
                 Nickname = (string)reader["Nickname"],
                 Email = (string)reader["Email"],
-                RoleId = (int)reader["RoleId"]
+                RoleId = (int)reader["RoleId"],
+                RoleName = ((int)reader["RoleId"] == 1) ? "User" : ((int)reader["RoleId"] == 2) ? "Modo" : "Admin"
             };
         }
 

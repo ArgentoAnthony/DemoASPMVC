@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using DemoASPMVC.Tools;
+@inject SessionManager session;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -39,7 +42,25 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User</a>
+                        </li><li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Genre" asp-action="Index">Genre</a>
                         </li>
+                        @if (session.ConnectedUser is null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Connexion</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">S'enregistrer</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Déconnexion</a>
+                            </li>
+                        }
+                        
                     </ul>
                 </div>
             </div>

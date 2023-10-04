@@ -15,7 +15,7 @@ namespace DemoASPMVC_DAL.Services
         protected readonly string _connectionString;
         public BaseRepository(IConfiguration config)
         {
-            _connectionString = config.GetConnectionString("Techni");
+            _connectionString = config.GetConnectionString("default");
         }
         protected abstract TModel Mapper(IDataReader reader);
         public virtual IEnumerable<TModel> GetAll(string tablename)
@@ -55,7 +55,7 @@ namespace DemoASPMVC_DAL.Services
                     {
                         try
                         {
-
+                            reader.Read();
                             return Mapper(reader);
                         }
                         catch(Exception ex)

@@ -1,14 +1,30 @@
-﻿@model IEnumerable<DemoASPMVC.Models.Game>
+﻿@using DemoASPMVC.Tools;
+@using DemoASPMVC_DAL.Models;
+@model IEnumerable<DemoASPMVC.Models.Game>
+@inject SessionManager session;
 
 @{
     ViewData["Title"] = "Index";
+    IEnumerable<Genre> genres = ViewData["ListeGenre"] as IEnumerable<Genre> ?? null;
 }
 
 <h1>Index</h1>
-
+@if (session.ConnectedUser is not null)
+{
+    <p>Bonjour @session.ConnectedUser.Nickname</p>
+}
+@if (session.ConnectedUser is not null && session.ConnectedUser.RoleName == "Admin")
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+  
+}
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="GetGameByGenre">Affichage par genre</a>
 </p>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -19,29 +35,36 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Genre)
+                @Html.DisplayNameFor(model => model.Label)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id  }) |
-                @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Label)
+                </td>
+                <td>
+                    @if (session.ConnectedUser is not null && (session.ConnectedUser.RoleName == "Admin" || session.ConnectedUser.RoleName == "Modo"))
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) <span>|</span>                           
+                        }                               
+                    @Html.ActionLink("Details", "Details", new { id=item.Id  })
+                    @if (session.ConnectedUser is not null && session.ConnectedUser.RoleName == "Admin" )
+                    {
+                        <span>|</span> @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

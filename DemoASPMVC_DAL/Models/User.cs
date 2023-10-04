@@ -6,5 +6,6 @@
         public string Email { get; set; } = null!;
         public string Nickname { get; set; } = null!;
         public int RoleId { get; set; }
+        public string RoleName { get; set; }
     }
 }

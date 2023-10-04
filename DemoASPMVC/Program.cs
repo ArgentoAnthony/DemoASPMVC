@@ -2,6 +2,7 @@ using DemoASPMVC.Services;
 using System.Data.SqlClient;
 using DemoASPMVC_DAL.Interface;
 using DemoASPMVC_DAL.Services;
+using DemoASPMVC.Tools;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,14 +13,16 @@ builder.Services.AddControllersWithViews();
 //Singleton => Garder une seule et unique instance pour la durée de vie de l'application
 // Service ré-instancier à chaque fois qu'on redémarre l'application
 
-builder.Services.AddSingleton<GameService>();
 
-builder.Services.AddTransient<SqlConnection>(pc => new SqlConnection(builder.Configuration.GetConnectionString("Techni")));
+//builder.Services.AddSingleton<GameDBService>();
+
+builder.Services.AddTransient<SqlConnection>(pc => new SqlConnection(builder.Configuration.GetConnectionString("default")));
 
 builder.Services.AddScoped<IGameService, GameDBService>();
 builder.Services.AddScoped<IUserDBService, UserDBService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IGenreService, GenreService>();
 
 
 //builder.Services.AddScoped<IGameService, GameService>();
@@ -31,7 +34,11 @@ builder.Services.AddScoped<IUserService, UserService>();
 //Tansient => a chaque appel du service => nouvelle instance
 //builder.Services.AddTransient<GameService>();
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 
+builder.Services.AddScoped<SessionManager>();
 
 var app = builder.Build();
 
@@ -45,6 +52,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseSession();
 
 app.UseRouting();
 
