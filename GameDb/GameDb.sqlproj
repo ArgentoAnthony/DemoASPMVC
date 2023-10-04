@@ -66,7 +66,6 @@
     <Build Include="Storedprocedure\UserRegister.sql" />
     <Build Include="Storedprocedure\GetSecretKey.sql" />
     <Build Include="Storedprocedure\UserLogin.sql" />
-    <Build Include="Tables\Favoris.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GameDb.publish.xml" />
