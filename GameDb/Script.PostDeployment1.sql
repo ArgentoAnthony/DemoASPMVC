@@ -27,4 +27,6 @@ VALUES ('WoW','Meilleur jeu', 3),
 EXEC UserRegister 'admin@mail.be', 'motdepasse', 'Arthur'
 EXEC UserRegister 'user@mail.be', 'motdepasse', 'Merlin'
 
+INSERT INTO Favoris VALUES (1,1), (1,2);
+
 UPDATE UsersDB SET RoleId = 3 WHERE Id = 1

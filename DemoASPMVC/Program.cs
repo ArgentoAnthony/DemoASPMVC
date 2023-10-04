@@ -16,7 +16,7 @@ builder.Services.AddControllersWithViews();
 
 //builder.Services.AddSingleton<GameDBService>();
 
-builder.Services.AddTransient<SqlConnection>(pc => new SqlConnection(builder.Configuration.GetConnectionString("default")));
+builder.Services.AddTransient<SqlConnection>(pc => new SqlConnection(builder.Configuration.GetConnectionString("Techni")));
 
 builder.Services.AddScoped<IGameService, GameDBService>();
 builder.Services.AddScoped<IUserDBService, UserDBService>();

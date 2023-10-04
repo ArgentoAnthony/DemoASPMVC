@@ -34,18 +34,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Game" asp-action="Index">Liste jeux</a>
                         </li>
-                       @*  <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                        @*  <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
                         </li> *@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Movie" asp-action="Index">Movie</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User</a>
-                        </li><li class="nav-item">
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Genre" asp-action="Index">Genre</a>
                         </li>
-                        @if (session.ConnectedUser is null)
+                        @if (session.ConnectedUser is null)// Déconnecté
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Connexion</a>
@@ -54,13 +55,16 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">S'enregistrer</a>
                             </li>
                         }
-                        else
-                        {
+                        else //Connecté
+                        {                           
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Game" asp-action="Favoris">Favoris</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Déconnexion</a>
                             </li>
                         }
-                        
+
                     </ul>
                 </div>
             </div>

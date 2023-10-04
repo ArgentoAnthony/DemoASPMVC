@@ -58,6 +58,7 @@
     <Folder Include="Properties" />
     <Folder Include="Tables" />
     <Folder Include="Storedprocedure" />
+    <Folder Include="View" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Game.sql" />
@@ -66,6 +67,9 @@
     <Build Include="Storedprocedure\UserRegister.sql" />
     <Build Include="Storedprocedure\GetSecretKey.sql" />
     <Build Include="Storedprocedure\UserLogin.sql" />
+    <Build Include="Tables\Favoris.sql" />
+    <Build Include="Tables\Genre.sql" />
+    <Build Include="View\ProcFavoris.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GameDb.publish.xml" />

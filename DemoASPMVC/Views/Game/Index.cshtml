@@ -63,6 +63,10 @@
                     {
                         <span>|</span> @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
                     }
+                    @if (session.ConnectedUser is not null )
+                    {
+                        @Html.ActionLink("Favoris", "AddFavoris", new { id = item.Id }) <span>|</span>
+                    }
                 </td>
             </tr>
         }

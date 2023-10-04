@@ -34,10 +34,10 @@ namespace DemoASPMVC.Services
         {
             return new Game
             {
-                Id = (int)reader["Id"],
+                Id = (int)reader["Id"],  
                 Title = (string)reader["Title"],
                 Description = (string)reader["Description"],
-                Genre_Id = reader["Genre_Id"] != DBNull.Value ? (int)reader["Genre_Id"] : null,
+               // Genre_Id = reader["Genre_Id"] != DBNull.Value ? (int)reader["Genre_Id"] : null,
                 Label = (string)reader["Label"]
             };
         }
@@ -132,6 +132,80 @@ namespace DemoASPMVC.Services
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while(reader.Read())
+                    {
+                        game.Add(Mapper(reader));
+                    }
+                }
+                _connection.Close();
+            }
+            return game;
+        }
+
+        public void AddFavorite(int id)
+        {
+            using (SqlCommand cmd = _connection.CreateCommand())
+            {
+                string sql = "INSERT INTO Favoris VALUES (@idJeu, @idUser);";
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("idJeu", id);
+                cmd.Parameters.AddWithValue("idUser", _session.ConnectedUser.Id);
+                if (_connection.State == System.Data.ConnectionState.Open) _connection.Close();
+
+                _connection.Open();
+                cmd.ExecuteNonQuery();
+                _connection.Close();
+            }
+        }
+
+        public void RemoveFavorite(int id)
+        {
+            using (SqlCommand cmd = _connection.CreateCommand())
+            {
+                string sql = "DELETE FROM Favoris WHERE Id_Jeu = @idJeu AND Id_User = @idUser;";
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("idJeu", id);
+                cmd.Parameters.AddWithValue("idUser", _session.ConnectedUser.Id);
+                _connection.Open();
+                cmd.ExecuteNonQuery();
+                _connection.Close();
+            }
+        }
+
+        public bool IsFavoris(int idJeu, int idUser)
+        {
+            using (SqlCommand cmd = _connection.CreateCommand())
+            {
+                cmd.CommandText = "SELECT * FROM Favoris WHERE Id_Jeu = @idJeu AND Id_User = @idUser";
+                cmd.Parameters.AddWithValue("idJeu", idJeu);
+                cmd.Parameters.AddWithValue("idUser", idUser);
+                _connection.Open();
+                using(SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    Console.WriteLine(reader);
+                    if (reader.Read())
+                    {
+                        Console.WriteLine("test");
+                        return true;
+                    }
+                    return false;
+                }
+            }
+        }
+        public IEnumerable<Game> GetFavoris()
+        {
+            List<Game> game = new List<Game>();
+            using (SqlCommand cmd = _connection.CreateCommand())
+            {
+
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.CommandText = "ProcFavoris";
+
+                cmd.Parameters.AddWithValue("id", _session.ConnectedUser.Id);
+
+                _connection.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
                         game.Add(Mapper(reader));
                     }

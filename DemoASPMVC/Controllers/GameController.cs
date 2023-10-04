@@ -33,6 +33,22 @@ namespace DemoASPMVC.Controllers
             return View(gameService.GetGamesByGenre(genreId));
         }
 
+        public IActionResult Favoris()
+        {
+            return View(gameService.GetFavoris());
+        }
+        
+        public IActionResult AddFavoris(int id)
+        {
+            if (!gameService.IsFavoris(id, _session.ConnectedUser.Id))
+            {
+                gameService.AddFavorite(id);
+            }
+           
+
+            return RedirectToAction("Favoris");
+        }
+
         [CustomAuthorize]
         public IActionResult Details(int id)
         {
@@ -70,6 +86,12 @@ namespace DemoASPMVC.Controllers
             return RedirectToAction("Index");
 
             //Transient => on crée une nouvelle instance, à chaque fois que le service est appelé
+        }
+
+        public IActionResult DeleteFavoris(int id)
+        {
+            gameService.RemoveFavorite(id);
+            return RedirectToAction("Favoris");
         }
     }
 }
