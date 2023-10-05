@@ -78,7 +78,7 @@ namespace DemoASPMVC.Services
             Game game = new();
             using(SqlCommand cmd = _connection.CreateCommand())
             {
-                cmd.CommandText = "SELECT * FROM Game WHERE Id = @id";
+                cmd.CommandText = "SELECT * FROM Game JOIN Genre ON Game.Genre_Id = Genre.Id WHERE Game.Id = @id"; ;
                 cmd.Parameters.AddWithValue("id", id);
 
                 _connection.Open();
